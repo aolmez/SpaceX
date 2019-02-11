@@ -37,7 +37,7 @@ class LaunchActivity : BaseActivity() {
     }
 
     private val launchItemClicked: (launch: Launch?) -> Unit = {
-        //DetailActivity.start(this@SearchActivity, it)
+        LaunchDetailActivity.start(this@LaunchActivity, it)
     }
 
     //Fab Sort Listener
