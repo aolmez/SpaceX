@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SpaceX</string>
+    <string name="tool_mission_name">mission_name</string>
+    <string name="tool_manufacturer">manufacturer</string>
+    <string name="tool_nationality">nationality</string>
+    <string name="tool_site_name">site_name</string>
 </resources>
