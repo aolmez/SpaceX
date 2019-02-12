@@ -16,7 +16,7 @@ class RegularViewHolder(itemView: View) : BaseViewHolder(itemView) {
     fun bindViews(launch: Launch?, itemClicked: (launch: Launch?) -> Unit) {
 
         Picasso.get().load(launch?.links?.missionPatch).into(missionImage)
-        missionName.text = """${launch?.flightNumber}${launch?.missionName}"""
+        missionName.text = launch?.missionName
         manufacturer.text = launch?.rocket?.secondStage?.payloads?.get(0)?.manufacturer
         nationality.text = launch?.rocket?.secondStage?.payloads?.get(0)?.nationality
         siteName.text = launch?.launchSite?.siteName
