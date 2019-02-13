@@ -23,42 +23,35 @@ import java.util.LinkedHashSet
 
 class LaunchViewModel : ViewModel() {
 
-    private var launches: LiveData<Resource<MutableList<Launch>?>>? = null
+    val launches: MutableLiveData<Resource<MutableList<Launch>?>> = MutableLiveData()
 
     companion object {
         fun create(activity: FragmentActivity) = ViewModelProviders.of(activity).get(LaunchViewModel::class.java)
     }
 
     init {
-        if(launches == null){
-            getLaunches()
-        }
+           getLaunches()
     }
 
-
-    fun getLaunches(): LiveData<Resource<MutableList<Launch>?>> {
-
-
-        val data = MutableLiveData<Resource<MutableList<Launch>?>>()
+    fun getLaunches() {
 
         if (!Util.isNetworkAvailable()) {
-            data.value = Resource.error(AppException(Throwable("Check Your Internet Connection!", null)))
+            launches.value = Resource.error(AppException(Throwable("Check Your Internet Connection!", null)))
         }
 
-        data.value = Resource.loading()
+        launches.value = Resource.loading()
         ApiService.instance.getLaunches().enqueue(object : Callback<List<Launch>?> {
 
             override fun onResponse(call: Call<List<Launch>?>, response: Response<List<Launch>?>) {
-                data.value = Resource.success(response.body()?.toMutableList())
+                launches.value = Resource.success(response.body()?.toMutableList())
             }
 
             override fun onFailure(call: Call<List<Launch>?>, t: Throwable) {
                 val exception = AppException(t)
-                data.value = Resource.error(exception)
+                launches.value = Resource.error(exception)
             }
 
         })
-        return data
     }
 
 

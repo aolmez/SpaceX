@@ -31,9 +31,11 @@ class LaunchActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(org.faruk.spacex.R.layout.activity_launch)
 
-        launchViewModel = LaunchViewModel.create(this)
+        if(launchViewModel == null){
+            launchViewModel = LaunchViewModel.create(this)
+        }
 
-        launchViewModel?.getLaunches()?.observe(this, Observer<Resource<MutableList<Launch>?>> { resource ->
+        launchViewModel?.launches?.observe(this, Observer<Resource<MutableList<Launch>?>> { resource ->
             if (resource != null) {
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {
